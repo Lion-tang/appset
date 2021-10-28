@@ -1,0 +1,34 @@
+server:
+  #端口号
+  port: 8088
+
+spring:
+#  前端模板
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+  servlet:
+    multipart:
+      #上传最大文件大小。值可以使用后缀“MB”或“KB”。指示兆字节或千字节大小。
+      max-file-size: 100MB
+      #最大请求大小可以是mb也可以是kb
+      max-request-size: 100MB
+  mvc:
+    static-path-pattern: /**
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+    freemarker:
+      cache: false    #页面不加载缓存，修改即时生效
+  datasource:
+    url: jdbc:mysql://127.0.0.1/appsetlogin?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    driver-class-name:   com.mysql.cj.jdbc.Driver
+mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false

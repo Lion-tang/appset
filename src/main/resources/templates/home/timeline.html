@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>华科大交易溯源系统</title>
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--<div class="layui-card-header"><a href="/logout">退出</a></div>-->
+                <div class="layui-card-body">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>查找商品标识符(支持模糊查找)</legend>
+                    </fieldset>
+
+                    <div class="layui-row" id="search">
+                        <div class="layui-col-md10">
+                            <form class="layui-form layui-from-pane" lay-filter="aaa" action="" style="margin-top:20px">
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">商品标识</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="uid" placeholder="请输入商品标识" autocomplete="off"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+
+
+                                <div class="layui-form-item" style="margin-top:40px">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn  layui-btn-submit " lay-submit=""
+                                                lay-filter="searchButton">确认
+                                        </button>
+                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="layui-col-md12">
+                            <div class="layui-card">
+                                <div class="layui-card-header">交易时间线</div>
+                                <div class="layui-card-body">
+
+                                    <ul class="layui-timeline">
+
+                                        <li class="layui-timeline-item" id="out0" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh0"></h3>
+                                                <p id="inp00"></p>
+                                                <p id="inp01"></p>
+                                                <p id="inp02"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out1" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh1"></h3>
+                                                <p id="inp10"></p>
+                                                <p id="inp11"></p>
+                                                <p id="inp12"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out2" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh2"></h3>
+                                                <p id="inp20"></p>
+                                                <p id="inp21"></p>
+                                                <p id="inp22"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out3" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh3"></h3>
+                                                <p id="inp30"></p>
+                                                <p id="inp31"></p>
+                                                <p id="inp32"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out4" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh4"></h3>
+                                                <p id="inp40"></p>
+                                                <p id="inp41"></p>
+                                                <p id="inp42"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out5" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh5"></h3>
+                                                <p id="inp50"></p>
+                                                <p id="inp51"></p>
+                                                <p id="inp52"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out6" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh6"></h3>
+                                                <p id="inp60"></p>
+                                                <p id="inp61"></p>
+                                                <p id="inp62"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out7" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh7"></h3>
+                                                <p id="inp70"></p>
+                                                <p id="inp71"></p>
+                                                <p id="inp72"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out8" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh8"></h3>
+                                                <p id="inp80"></p>
+                                                <p id="inp81"></p>
+                                                <p id="inp82"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out9" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh9"></h3>
+                                                <p id="inp90"></p>
+                                                <p id="inp91"></p>
+                                                <p id="inp92"></p>
+                                            </div>
+                                        </li>
+                                        <li class="layui-timeline-item" id="out10" style="display: none">
+                                            <i class="layui-icon layui-timeline-axis"></i>
+                                            <div class="layui-timeline-content layui-text">
+                                                <h3 class="layui-timeline-title" id="inh10"></h3>
+                                                <p id="inp100"></p>
+                                                <p id="inp101"></p>
+                                                <p id="inp102"></p>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'table'], function () {
+        var $ = layui.$,
+            form = layui.form;
+
+        //监听查找按钮事件
+        form.on('submit(searchButton)', function (message) {
+            // console.log(message.field);
+            var field = message.field;
+
+            $.ajax({
+                url: '/queryRecord',
+                data: field,
+                method: 'post',
+                success: function (resp) {
+                    var respdata = resp['data'];
+                    var lens = respdata.length;
+                    // console.log(respdata);
+
+                    for (let idx = 0; idx < lens; idx++) {
+                        let st = "#out" + idx;
+                        let sinh = "#inh" + idx;
+                        let sinp0 = "#inp" + idx + "0";
+                        let sinp1 = "#inp" + idx + "1";
+                        let sinp2 = "#inp" + idx + "2";
+                        $(st).attr("style", "display: block");
+                        $(sinh).text(respdata[idx]['time'].substr(0, 19))
+                        $(sinp0).text("标识符：" + respdata[idx]['uid'])
+                        $(sinp1).text("确权地点：" + respdata[idx]['locate'])
+                        $(sinp2).text("交易摘要值：" + respdata[idx]['txHash'])
+                    }
+                //
+                }
+
+            });
+
+
+            return false
+        });
+
+
+    });
+</script>
+</body>
+</html>

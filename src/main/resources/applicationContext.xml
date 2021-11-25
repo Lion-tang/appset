@@ -14,8 +14,8 @@
 			<map>
 				<entry key="peers">
 					<list>
-                        <value>172.168.160.18:20200</value>
-                        <value>172.168.160.18:20201</value>
+                        <value>192.168.59.128:20200</value>
+                        <value>192.168.59.128:20201</value>
 					</list>
 				</entry>
 			</map>
@@ -27,7 +27,7 @@
 				<entry key="accountAddress" value="" />
 				<entry key="accountFileFormat" value="pem" />
 				<entry key="password" value="" />
-				<entry key="accountFilePath" value="" />
+<!--				<entry key="accountFilePath" value="" />-->
 			</map>
 		</property>
 		<property name="threadPool">
@@ -38,10 +38,14 @@
 			</map>
 		</property>
 	</bean>
+	
+
 
 	<bean id="defaultConfigOption" class="org.fisco.bcos.sdk.config.ConfigOption">
 		<constructor-arg name="configProperty">
 				<ref bean="defaultConfigProperty"/>
+		</constructor-arg>
+		<constructor-arg name = "cryptoType" value="1"><!-->国密配置<-->
 		</constructor-arg>
 	</bean>
 

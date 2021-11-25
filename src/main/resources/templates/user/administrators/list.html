@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>注册用户</title>
+  <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+  <legend>注册用户</legend>
+</fieldset>
+<!-- <table class="layui-hide" id="demo" lay-filter="test"></table> -->
+<table id="demo" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-sm" lay-event="add">添加用户</button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger data-count-delete" lay-event="delete">批量删除</button>
+  </div>
+</script>
+
+<script type="text/html" id="currentTableBar">
+  <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">单项删除</a>
+</script>
+
+
+<!--添加用户-->
+<div class="layui-row" id="popAddTest" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" lay-filter="aaa" action="" style="margin-top:20px">
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+          <input type="text" name="userName" lay-verify="required" placeholder="请输入用户姓名" autocomplete="off"
+                 class="layui-input">
+        </div>
+      </div>
+
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-col-md6">
+          <select name="role" lay-verify="required">
+            <option value="">请选择一个角色</option>
+            <option value="user">业务节点</option>
+            <option value="admin">普通管理员</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+          <input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                 class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+          <input type="text" name="locate"  placeholder="请输入用户节点地址" autocomplete="off"
+                 class="layui-input">
+        </div>
+      </div>
+
+
+      <div class="layui-form-item" style="margin-top:40px">
+        <div class="layui-input-block">
+          <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="demo11">确认</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script src="/layui/layui.js"></script>
+<script>
+  layui.use(['table', 'jquery', 'layer', 'form'], function () {
+    var table = layui.table;
+    var $ = layui.jquery;
+    var layer = layui.layer;
+    var form = layui.form;
+
+    //表格数据
+    table.render({
+      elem: '#demo'
+      , totalRow: true
+      , method: 'post'
+      , url: "/showUserAndAdmin" //数据接口
+      , cols: [
+        [ //表头
+          {type: 'checkbox', fixed: 'left'}
+          , {field: 'userName', title: '用户姓名', fixed: 'left', align: "center", totalRowText: '合计'}
+          , {field: 'role', title: '角色',   align: "center"}
+          , {field: 'address', title: '账户', align: "center"}
+          , {field: 'locate', title: '地址', align: "center"}
+
+        ]
+      ]
+      , page: true //开启分页
+      , toolbar: '#toolbarDemo'//工具图标
+    });
+
+
+    //监听头工具栏事件
+    table.on('toolbar(test)', function (obj) {
+      var checkStatus = table.checkStatus(obj.config.id)
+              , data = checkStatus.data; //获取选中的数据
+      switch (obj.event) {
+        case 'add':
+          addstudent();
+          break;
+        case 'delete':
+          // console.log("data[0].userName为", data[0].userName);
+
+          data = data.map(item => item.userName);
+
+          layer.confirm('真的删除行么', function (index) {
+            // obj.del();
+            layer.close(index);
+            applydeletestudent(data);
+          });
+          break;
+      }
+
+    });
+    //监听行工具事件
+    table.on('tool(test)', function (obj) {
+      var data = obj.data;
+      data = [data.idCard];
+      // console.log("data数据为：", data);//调试对象
+      // console.log("用户名数据为：", data.userName);//调试对象
+      if (obj.event === 'delete') {
+        layer.confirm('真的删除行么', function (index) {
+          // obj.del();
+          layer.close(index);
+          applydeletestudent(data);
+        });
+      }
+    });
+
+    //添加用户
+    function addstudent() {
+      layer.open({
+        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+        type: 1,
+        title: "添加客户信息",
+        area: ['420px', '530px'],
+        content: $("#popAddTest")//引用的弹出层的页面层的方式加载修改界面表单
+      });
+      // console.log("测试添加用户输出");
+      //监听提交
+      form.on('submit(demo11)', function (message) {
+        // console.log(message.field);
+        var field = message.field;
+        console.log('添加数据为', field);
+        $.ajax({
+          method: "post",
+          url: "/register",
+          data: JSON.stringify(field),
+          contentType: 'application/json',
+          datatype: "json",
+          success: function (resp) {
+            // console.log(resp);
+            layer.closeAll();//关闭所有的弹出层
+            if (resp.code == 0) {
+              layer.msg(resp.msg, {icon: 6});
+              //刷新数据
+              $(".layui-laypage-btn").click();
+            } else {
+              layer.msg(resp.msg, {icon: 5});
+            }
+          }
+        });
+        return false
+      });
+
+    }
+
+    //申请删除用户
+    function applydeletestudent(data) {
+      // console.log('删除的用户为', data);
+      $.ajax({
+        method: 'post',
+        url: '/deleteUser',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        datatype: "json",
+        success: function (resp) {
+          // console.log(resp);
+          if (resp.code == 0) {
+            layer.msg(resp.msg, {icon: 6});
+            //刷新数据
+            $(".layui-laypage-btn").click();
+          } else {
+            layer.msg(resp.msg, {icon: 5});
+          }
+        }
+      })
+      return false;
+    }
+  });
+</script>
+</body>
+</html>

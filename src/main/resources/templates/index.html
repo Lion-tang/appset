@@ -25,8 +25,8 @@
               <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
             </a>
           </li>
-          <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="http://172.168.160.18:5000/#/home" target="_blank" title="后台底层">
+          <li class="layui-nav-item layui-hide-xs" lay-unselect th:if = "${role == 'commitee' || role == 'admin'}">
+            <a href="http://192.168.59.128:5000/#/home" target="_blank" title="后台底层">
               <i class="layui-icon layui-icon-website"></i>
             </a>
           </li>
@@ -40,7 +40,7 @@
         <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
           
           <li class="layui-nav-item" lay-unselect>
-            <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+            <a lay-href="set/message.html" layadmin-event="message" lay-text="消息中心">
               <i class="layui-icon layui-icon-notice"></i>  
               
               <!-- 如果有新消息，则显示小圆点 -->
@@ -67,8 +67,8 @@
               <p th:text="${title}"></p>
             </a>
             <dl class="layui-nav-child">
-              <dd><a lay-href="set/user/info.html">基本资料</a></dd>
-              <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+              <dd><a lay-href="set/info.html">基本资料</a></dd>
+              <dd><a lay-href="set/password.html">修改密码</a></dd>
               <hr>
               <dd  ><a href="/logout">退出</a></dd>
             </dl>
@@ -84,8 +84,8 @@
       <!-- 侧边菜单 -->
       <div class="layui-side layui-side-menu">
         <div class="layui-side-scroll">
-          <div class="layui-logo" lay-href="home/console.html">
-            <span>交易商品溯源系统</span>
+          <div class="layui-logo"  >
+            <a href="http://192.168.59.128:5000/#/home" target="_blank">交易商品溯源系统</a>
           </div>
           
           <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
@@ -95,33 +95,34 @@
                 <cite>主页</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd data-name="console" class="layui-this">
-                  <a lay-href="home/demo2">溯源交易材料上传</a>
+                <dd data-name="console" class="layui-this" >
+                  <a lay-href="home/upload">溯源交易材料上传</a>
                 </dd>
                 <dd data-name="console" >
-                  <a lay-href="home/demo1">溯源交易材料查询</a>
+                  <a lay-href="home/timeline">交易流转时间线</a>
                 </dd>
-
+                <dd data-name="console" >
+                  <a lay-href="home/download">溯源材料下载</a>
+                </dd>
 
               </dl>
             </li>
 
 
-            <li data-name="user" class="layui-nav-item">
-              <a href="javascript:;" lay-tips="用户" lay-direction="2">
-                <i class="layui-icon layui-icon-user"></i>
-                <cite>用户</cite>
+            <li data-name="user" class="layui-nav-item"  th:if = "${role == 'commitee' || role == 'admin'}">
+              <a href="javascript:;" lay-tips="用户" lay-direction="2" >
+                <i class="layui-icon layui-icon-user" ></i>
+                <cite >用户</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd>
-                  <a lay-href="user/list.html">网站用户</a>
+
+                <dd >
+                  <a lay-href="user/user/list.html">业务节点管理</a>
                 </dd>
-                <dd>
-                  <a lay-href="user/adminlist.html">后台管理员</a>
+                <dd th:if = "${role == 'commitee'} ">
+                  <a lay-href="user/administrators/list.html">链后台管理员</a>
                 </dd>
-                <dd>
-                  <a lay-href="user/role.html">角色管理</a>
-                </dd>
+
               </dl>
             </li>
             <li data-name="set" class="layui-nav-item">
@@ -139,7 +140,7 @@
               </dl>
             </li>
 
-            <li data-name="template" class="layui-nav-item">
+            <li data-name="template" class="layui-nav-item" th:if = "${role == 'commitee' || role == 'admin'}">
               <a href="javascript:;" lay-tips="页面" lay-direction="2">
                 <i class="layui-icon layui-icon-template"></i>
                 <cite>页面</cite>
@@ -147,12 +148,12 @@
               <dl class="layui-nav-child">
                 <dd><a lay-href="user/register.html">注册</a></dd>
                 <dd>
-                  <a href="http://172.168.160.18:5000/#/home" target="_blank">后台控制台</a>
+                  <a href="http://192.168.59.128:5000/#/home" target="_blank">后台控制台</a>
                 </dd>
               </dl>
             </li>
 
-            <li data-name="component" class="layui-nav-item">
+            <li data-name="component" class="layui-nav-item" th:if = "${role == 'commitee' || role == 'admin'}">
               <a href="javascript:;" lay-tips="组件" lay-direction="2">
                 <i class="layui-icon layui-icon-component"></i>
                 <cite>组件</cite>
@@ -356,7 +357,7 @@
         </div>
         <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
           <ul class="layui-tab-title" id="LAY_app_tabsheader">
-            <li lay-id="home/demo2" lay-attr="home/demo2" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+            <li lay-id="home/upload" lay-attr="home/demo2" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
           </ul>
         </div>
       </div>
@@ -365,7 +366,7 @@
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
-          <iframe src="home/demo2" frameborder="0" class="layadmin-iframe"></iframe>
+          <iframe src="home/upload"  class="layadmin-iframe"></iframe>
         </div>
       </div>
       

@@ -22,13 +22,35 @@ spring:
       enabled: true  #设置开启热部署
     freemarker:
       cache: false    #页面不加载缓存，修改即时生效
+
   datasource:
-    url: jdbc:mysql://127.0.0.1/appsetlogin?useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: 123456
-    driver-class-name:   com.mysql.cj.jdbc.Driver
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/appsetlogin?serverTimezone=GMT&useUnicode=true&characterEncoding=UTF-8
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        slave_0:
+          url: jdbc:mysql://localhost:3306/dataexport0?serverTimezone=GMT&useUnicode=true&characterEncoding=UTF-8
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        slave_1:
+          url: jdbc:mysql://localhost:3306/dataexport1?serverTimezone=GMT&useUnicode=true&characterEncoding=UTF-8
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        #......省略
+        #以上会配置一个默认库master，一个组slave下有两个子库slave_1,slave_2
+
+#    分片
+
 mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     banner: false
+

@@ -74,7 +74,7 @@ public class FIleServiceImpl implements FIleService {
 
         //没有uid自动生成uid
         if (uid == null || "".equals(uid)) {
-            uid = UUID.randomUUID().toString().trim().replaceAll("-", "");
+            uid = UUID.randomUUID().toString().trim();//uid = UUID.randomUUID().toString().trim().replaceAll("-", "")去掉uuid 连接符
         }
 
         //开启文件Hash上传至区块链

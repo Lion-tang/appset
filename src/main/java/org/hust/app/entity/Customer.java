@@ -6,6 +6,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+/**
+@Date 2021/11/26
+@Description 用户登录实体类
+@author zltang
+**/
+
+
 @Data
 @TableName(value = "user")
 public class Customer {

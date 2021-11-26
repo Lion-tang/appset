@@ -1,7 +1,13 @@
 package org.hust.app.entity;
 
-
 import java.util.List;
+
+
+/**
+@Date 2021/11/26
+@Description 返回前端的实体类
+@author zltang
+**/
 
 public class ResponseListData<T>{
     private Integer code;

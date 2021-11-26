@@ -9,7 +9,11 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-
+/**
+@Date 2021/11/26
+@Description 权限访问控制设置
+@author zltang
+**/
 @EnableWebSecurity
 @Configuration
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {

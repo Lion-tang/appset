@@ -3,6 +3,12 @@ package org.hust.app.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+@Date 2021/11/26
+@Description Hash工具包
+@author zltang
+**/
+
 public class ShaUtils {
     public static String MD5 = "MD5";
     public static String SHA_1 = "SHA-1";

@@ -2,8 +2,8 @@ package org.hust.app.entity;
 
 /**
  * @Date  2021/5/25
- * @Description 返回前端的结果集
- * @author Lyontang
+ * @Description 返回前端的实体类
+ * @author zltang
 **/
 public class ResponseData<T> {
 

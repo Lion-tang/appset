@@ -6,6 +6,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.Comparator;
 
+/**
+@Date 2021/11/26
+@Description 主链(简要信息)属性实体类
+@author zltang
+**/
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

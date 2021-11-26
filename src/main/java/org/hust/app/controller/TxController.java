@@ -29,7 +29,12 @@ public class TxController {
     @Autowired
     private CustomerMapper customerMapper;
 
-    //上传文件接口
+    /**
+    @Date 2021/11/26
+    @Description 上传文件接口
+    @author zltang
+    **/
+
     @PostMapping("/upload")
     @ResponseBody
     public ResponseData upload(MultipartFile file, @RequestParam("uid") String uid, @RequestParam("desc")String desc, Principal principal) {
@@ -57,6 +62,12 @@ public class TxController {
         }
     }
 
+    /**
+    @Date 2021/11/26
+    @Description 查询主链外部接口
+    @author zltang
+    **/
+
     @PostMapping("/queryRecord")
     @ResponseBody
     public ResponseListData queryRecord(@RequestParam("uid") String uid)  {
@@ -66,7 +77,6 @@ public class TxController {
         List<TxRecordVO> result = null;
 
         try {
-
             result = fileService.queryRecord(uid);
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,6 +88,12 @@ public class TxController {
         return ResponseListData.success(result);//返回前端JSON数据
     }
 
+    /**
+    @Date 2021/11/26
+    @Description 查询辅链的外部接口
+    @author zltang
+    **/
+
     @PostMapping("/queryDetail")
     @ResponseBody
     public ResponseListData queryDetail(@RequestParam("txHash") String txHash)  {
@@ -87,7 +103,6 @@ public class TxController {
         List<TxDetailVO> result = null;
 
         try {
-
             result = fileService.queryDetail(txHash);
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,6 +113,12 @@ public class TxController {
         }
         return ResponseListData.success(result);//返回前端JSON数据
     }
+
+    /**
+    @Date 2021/11/26
+    @Description 下载文件外部接口
+    @author zltang
+    **/
 
     @PostMapping("/download")
     @ResponseBody

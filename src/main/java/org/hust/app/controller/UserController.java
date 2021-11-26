@@ -15,6 +15,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+    @Date 2021/11/26
+    @Description 用户注册外部接口
+    @author zltang
+    **/
+
     @PostMapping("/register")
     @ResponseBody
     public ResponseData register(@RequestBody Customer user) {
@@ -27,6 +33,12 @@ public class UserController {
         return ResponseData.error("服务器错误，注册失败");
     }
 
+    /**
+    @Date 2021/11/26
+    @Description 删除逻辑用户外部接口
+    @author zltang
+    **/
+
     @PostMapping("/deleteUser")
     @ResponseBody
     public ResponseData deleteUser(@RequestBody List<String> batchUsername){
@@ -35,12 +47,24 @@ public class UserController {
         else return ResponseData.error("用户删除失败");
     }
 
+    /**
+    @Date 2021/11/26
+    @Description 显示所有普通节点和链管理员外部接口
+    @author zltang
+    **/
+
     @PostMapping("/showUserAndAdmin")
     @ResponseBody
     public ResponseListData showUserAndAdmin(@RequestParam("page") Integer num, @RequestParam("limit") Integer limit) {
         ResponseListData responseListData = userService.showUserAndAdmin(num, limit);
         return responseListData;
     }
+
+    /**
+    @Date 2021/11/26
+    @Description 仅显示普通节点外部接口
+    @author zltang
+    **/
 
     @PostMapping("/showUser")
     @ResponseBody
@@ -49,9 +73,4 @@ public class UserController {
         return responseListData;
     }
 
-    @GetMapping("/test")
-    @ResponseBody
-    public ResponseData test() {
-        return ResponseData.success("hello world");
-    }
 }

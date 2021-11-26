@@ -22,6 +22,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private CustomerMapper customerMapper;
 
+    /**
+    @Date 2021/11/26
+    @Description 注册用户
+    @author zltang
+    **/
+
     @Override
     public Integer register(Customer user) {
         QueryWrapper wrapper = new QueryWrapper();
@@ -41,6 +47,12 @@ public class UserServiceImpl implements UserService {
         return -1;
 }
 
+    /**
+    @Date 2021/11/26
+    @Description 在DApp删除用户，但是区块链并没用删除，由于DApp已经删除了用户对应区块链账户的信息，所以在逻辑上该用户就被删除了
+    @author zltang
+    **/
+
     @Override
     public Integer deleteUser(List<String> batchUsername) {
         int rescode = 0;
@@ -54,6 +66,12 @@ public class UserServiceImpl implements UserService {
         return rescode;
     }
 
+    /**
+    @Date 2021/11/26
+    @Description 显示普通用户节点和链管理员节点的接口
+    @author zltang
+    **/
+
     @Override
     public ResponseListData showUserAndAdmin(Integer num, Integer limit) {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -66,6 +84,12 @@ public class UserServiceImpl implements UserService {
         responseListData.setMsg("查询结果:");
         return responseListData;
     }
+
+    /**
+    @Date 2021/11/26
+    @Description 仅显示普通用户节点的接口
+    @author zltang
+    **/
 
     @Override
     public ResponseListData showUser(Integer num, Integer limit) {

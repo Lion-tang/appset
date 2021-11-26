@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 /**
- * @Author: zyt
+ * @Author: zltang
  * @Description: 加载配置文件
  * @Date: Created in 10:04 2021/1/7
  */

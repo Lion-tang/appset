@@ -1,13 +1,14 @@
 package org.hust.app.mapper;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Select;
 import org.hust.app.entity.Customer;
-import org.hust.app.entity.Goods;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+/**
+@Date 2021/11/26
+@Description 用户登录信息相关的CRUD
+@author zltang
+**/
 
 @Repository
 public interface CustomerMapper extends BaseMapper<Customer> {

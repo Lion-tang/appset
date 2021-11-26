@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+@Date 2021/11/26
+@Description 实现从数据库取数据验证登录
+@author zltang
+**/
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

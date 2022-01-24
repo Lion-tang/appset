@@ -14,8 +14,7 @@ import lombok.Data;
 @TableName(value = "g1_DetailCRUD_insert_method0")//默认对应的数据库表
 public class Goods{
     private String uid;
-    private String hash;
-    private String description;
+    private String attr;
 
 
 }

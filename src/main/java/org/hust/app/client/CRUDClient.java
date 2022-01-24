@@ -40,31 +40,22 @@ public class CRUDClient extends CommonClient implements ApplicationRunner {
     @author Lyontang
     **/
 
-    public void insertDetail(String uid, String hash, String description) {
+    public void insertDetail(String uid, String attr) {
 
         DetailCRUD detailCRUD= (DetailCRUD) getContractMap().get("Detail");
-        TransactionReceipt receipt = detailCRUD.insert(uid, hash, description);
+        TransactionReceipt receipt = detailCRUD.insert(uid , attr);
         logger.info("调用DetailClient的insert方法");
         logger.info("结果：{}", receipt);
     }
 
     public void insertRecord(String main_tx_hash, String uid, String locate) {
         RecordCRUD recordCRUD = ((RecordCRUD)getCRUDFromAccount(1, "0x67611f776c55565e921b00a4a23c65dc4e9f67df", CRUDClient.recordChoice));
-
         TransactionReceipt receipt = recordCRUD.insert(main_tx_hash, uid, locate);
         logger.info("调用RecordClient的insert方法");
         logger.info("结果：{}", receipt);
     }
 
-    public Tuple3 queryDetail(String uid) throws ContractException {
 
-        DetailCRUD detailCRUD = (DetailCRUD) getContractMap().get("Detail");
-        Tuple3<List<String>, List<String>, List<String>> getValue = detailCRUD.select(uid);
-        logger.info("调用DetailClient的query方法");
-        logger.info("结果：{}", getValue);
-        return getValue;
-
-    }
 
     public  Tuple3 queryRecord(String uid) throws ContractException {
         RecordCRUD recordCRUD = ((RecordCRUD) getContractMap().get("Record"));
@@ -74,26 +65,7 @@ public class CRUDClient extends CommonClient implements ApplicationRunner {
         return getValue;
     }
 
-    public void editDetail(String uid, String hash, String description) {
 
-        DetailCRUD detailCRUD = (DetailCRUD) getContractMap().get("Detail");
-        TransactionReceipt receipt = detailCRUD.update(uid, hash, description);
-        logger.info("调用DetailClient的edit方法");
-        logger.info("结果：{}", receipt);
-
-    }
-
-
-    @Override
-    public void removeDetail(String uid) {
-
-        DetailCRUD detailCRUD = (DetailCRUD) getContractMap().get("Detail");
-        TransactionReceipt receipt = detailCRUD.remove(uid);
-        logger.info("调用DetailClient的remove方法");
-        logger.info("结果：{}", receipt);
-
-
-    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -102,11 +74,12 @@ public class CRUDClient extends CommonClient implements ApplicationRunner {
 //        deploy("TestCRUD", TestCRUD.class, sdk, 1);
 //        TestCRUD testCRUD = (TestCRUD) getContractMap().get("TestCRUD");
         //加载存储的账户，防止每次生成账户和智能合约地址
-        DetailCRUD detailCRUD = ((DetailCRUD) getCRUDFromAccount(1, "0x67611f776c55565e921b00a4a23c65dc4e9f67df", detailChoice));
+        DetailCRUD detailCRUD = ((DetailCRUD) getCRUDFromAccount(2, "0x67611f776c55565e921b00a4a23c65dc4e9f67df", detailChoice));
         Map<String, Object> map = getContractMap();
         map.put("Detail", detailCRUD);
         logger.info("调用CRUDClient的加载合约地址{}方法");
     }
+
 
     public Object getCRUDFromAccount(Integer groupNum, String accountFile, int contractChoice) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
@@ -117,7 +90,7 @@ public class CRUDClient extends CommonClient implements ApplicationRunner {
         CryptoKeyPair cryptoKeyPair = cryptoSuite.getCryptoKeyPair();
         //合约地址使用固定的测试地址
         if (contractChoice == detailChoice)
-            return DetailCRUD.load("0xf6bfed863f0af8f01c762c040dc6ad27d496ff9d", client, cryptoKeyPair);
+            return DetailCRUD.load("0xa9a48424cdfd1da0c4d90244d8a91263edcea3b3", client, cryptoKeyPair);
         else return RecordCRUD.load("0xcdeb126edf8133f7b4b7a82b51895afac244e524", client, cryptoKeyPair);
     }
 

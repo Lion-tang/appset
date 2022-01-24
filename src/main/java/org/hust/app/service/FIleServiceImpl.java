@@ -87,7 +87,7 @@ public class FIleServiceImpl implements FIleService {
             map.put(detailMapKey, detailCRUD);
         }
         DetailCRUD detailCRUD = ((DetailCRUD) map.get(detailMapKey));
-        TransactionReceipt transactionReceipt = detailCRUD.insert(uid, shaDigest, desc);
+        TransactionReceipt transactionReceipt = detailCRUD.insert(uid, shaDigest + desc);//按照所有属性合成一个的思路修改为shaDigest+desc
         logger.info(transactionReceipt.toString());
         //查看是否有record享元存储
         if (!map.containsKey(recordMapKey)) {

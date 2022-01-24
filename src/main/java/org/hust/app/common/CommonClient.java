@@ -52,7 +52,7 @@ public abstract class CommonClient {
         return null;
     }
 
-    public abstract void removeDetail(String uid);
+
 
     public Map<String, Object> getContractMap() {
         return contractMap;

@@ -1,6 +1,6 @@
 package org.hust.app.service;
 
-import org.hust.app.contract.DetailCRUD;
+import org.fisco.bcos.sdk.transaction.model.exception.ContractException;
 import org.hust.app.entity.VO.TxDetailVO;
 import org.hust.app.entity.VO.TxRecordVO;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,11 +8,13 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 
 public interface FIleService {
-    String uploadFile(MultipartFile file, String uid, String desc, String contractName,String addressFile, String locate) throws Exception;
+    String uploadFile(MultipartFile file, String uid, String desc) throws Exception;
+
+    String uploadDetail(String uid, String attr) throws ContractException, InvocationTargetException, NoSuchMethodException, IllegalAccessException;
 
     List<TxDetailVO> queryDetail(String txHash) throws IOException;
 

@@ -95,6 +95,9 @@
                 <cite>主页</cite>
               </a>
               <dl class="layui-nav-child">
+                <dd data-name="console"  th:if = "${role == 'admin' || role == 'commitee'}">
+                  <a lay-href="home/intialtx">产品详情上传</a>
+                </dd>
                 <dd data-name="console" class="layui-this" >
                   <a lay-href="home/upload">溯源交易材料上传</a>
                 </dd>

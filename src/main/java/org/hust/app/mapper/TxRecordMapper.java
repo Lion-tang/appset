@@ -16,12 +16,12 @@ import java.util.List;
 @Repository
 public interface TxRecordMapper extends BaseMapper<TxRecordVO> {
     @DS("slave_0")
-    @Select("select locate,uid,main_tx_hash txHash,block_time_stamp time from g1_RecordCRUD_insert_method0 where uid like '%${uid}%'")
+    @Select("select uid, attr ,block_time_stamp time from g1_recordcrud_insert_method0 where uid = '${uid}'")
      List<TxRecordVO> selectRecordVO0(String uid);
 
 
     @DS("slave_1")
-    @Select("select locate,uid,main_tx_hash txHash,block_time_stamp time from g1_RecordCRUD_insert_method1 where uid like '%${uid}%'")
+    @Select("select uid, attr,block_time_stamp time from g1_recordcrud_insert_method1 where uid = '${uid}'")
      List<TxRecordVO> selectRecordVO1(String uid);
 
 }

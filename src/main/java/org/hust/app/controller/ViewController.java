@@ -7,8 +7,11 @@ import org.hust.app.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.security.Principal;
 
 
@@ -68,9 +71,16 @@ public class ViewController {
     @Description 主页物理视图
     @author zltang
     **/
-    @RequestMapping("/home/{page}")
+    @GetMapping("/home/{page}")
     public String getHomeUrl(@PathVariable("page") String page) {
         return "home/" + page;
+    }
+
+    @GetMapping(value = "/home/{page}",params = {"uid"})
+    public ModelAndView getHomeUrlParam(@PathVariable("page") String page, String uid) {
+        ModelAndView modelAndView = new ModelAndView("/home/"+page);
+        modelAndView.addObject("uid",uid);
+        return modelAndView;
     }
 
     /**

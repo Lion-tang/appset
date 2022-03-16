@@ -15,16 +15,17 @@ import java.util.Comparator;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TxRecordVO implements Comparator {
-    private String locate;
+public class TxRecordVO implements Comparable {
+
     private String uid;
-    private String txHash;
+    private String attr;
     private String time;
 
+
     @Override
-    public int compare(Object o1, Object o2) {
-        String time1 = ((TxRecordVO) o1).getTime();
-        String time2 = ((TxRecordVO) o2).getTime();
-        return time1.compareTo(time2);
+    public int compareTo(Object o) {
+        TxRecordVO txRecordVO = (TxRecordVO) o;
+        int ret = this.time.compareTo(txRecordVO.getTime());
+        return ret;
     }
 }

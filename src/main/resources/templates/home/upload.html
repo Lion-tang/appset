@@ -22,22 +22,57 @@
     </div>
   </div>
 
+
   <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
       <div class="layui-col-md12">
         <div class="layui-card" >
-          <div class="layui-card-header">上传溯源材料至区块链</div>
+          <div class="layui-card-header">上传溯源材料至区块链, 溯源码可以扫描二维码后复制粘贴</div>
           <div class="layui-card-body" >
             <div class="layui-form" style="height: 580px;margin-top: 10px">
               <div class="layui-form-item">
-                <label class="layui-form-label">商品唯一标识码</label>
+                <label class="layui-form-label">商品唯一溯源码</label>
                 <div class="layui-input-block">
-                  <input type="text" id="uid"  placeholder="请输入标识码，若无标识码，第一次提交会生成标识码，请保存好商品的标识码"
+                  <input type="text" id="uid"  placeholder="请输入溯源码"
                          autocomplete="off" class="layui-input">
                 </div>
               </div>
 
+              <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">产品状态</label>
+                <div class="layui-input-block">
+                <select name="city" lay-verify="" id="status">
+                  <option value="已到达" selected >已到达</option>
+<!--                  <option value="丢失" >丢失</option>-->
+<!--                  <option value="损坏" >损坏</option>-->
+                </select>
+                </div>
+              </div>
+
+              <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">企业或个人</label>
+                <div class="layui-input-block">
+                  <input type="text" id="individual"  placeholder="湖北省*****公司或某人"
+                         autocomplete="off" class="layui-input">
+                </div>
+              </div>
+
+              <div class="layui-inline">
+                <label class="layui-form-label">入库时间</label>
+                <div class="layui-input-inline">
+                  <input type="text" class="layui-input" id="indate" placeholder="yyyy-MM-dd">
+                </div>
+              </div>
+
+              <div class="layui-inline">
+                <label class="layui-form-label">出库时间</label>
+                <div class="layui-input-inline">
+                  <input type="text" class="layui-input" id="outdate" placeholder="yyyy-MM-dd">
+                </div>
+              </div>
+
               <div class="layui-form-item">
+                <div class="layui-input-block"></div>
                 <label class="layui-form-label">上传文件</label>
                 <div class="layui-input-inline uploadHeadImage">
                   <div class="layui-upload-drag" id="uploadFile" >
@@ -52,26 +87,18 @@
                 </div>
               </div>
 
-              <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">上传说明</label>
-                <div class="layui-input-block">
-                  <textarea id="desc" lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
-                </div>
-              </div>
               <div class="layui-form-item">
                 <div class="layui-input-block">
                   <button class="layui-btn" id="commit" lay-submit lay-filter="formDemo">立即提交</button>
-                  <button id="cancel" class="layui-btn layui-btn-primary">返回</button>
+                  <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
               </div>
             </div>
 
+
           </div>
         </div>
       </div>
-
-
-
     </div>
   </div>
   
@@ -81,10 +108,20 @@
     base: '../../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'upload','form'], function(){
+  }).use(['index', 'upload','form','laydate'], function(){
+    var laydate = layui.laydate;
     var $ = layui.jquery,
     form = layui.form,
     upload = layui.upload;
+
+
+    //常规用法
+    laydate.render({
+      elem: '#indate',
+    });
+    laydate.render({
+      elem: '#outdate',
+    });
     upload.render({
       elem: '#uploadFile'
       , url: '/upload'
@@ -94,9 +131,16 @@
       , auto: false
       , bindAction: '#commit'
       , before: function () {
+        let desc = [];
+        desc.push($('#status').val());
+        desc.push($("#individual").val());
+        desc.push($("#indate").val());
+        desc.push($("#outdate").val());
+        desc = desc.join(',');
+        console.log(desc);
         this.data = {
           uid: $('#uid').val(),
-          desc: $('#desc').val(),
+          desc: desc
         };
 
         var index = layer.msg('上传中..', {
@@ -115,9 +159,7 @@
         } else
           layer.msg(res.msg,{icon: 2});
       }
-      , error: function (index, upload) {
-        layer.msg("网络或404异常，上传失败")
-      }
+
     });
 
   });

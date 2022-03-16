@@ -1,8 +1,7 @@
 package org.hust.app.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.hust.app.entity.Customer;
+
 import org.hust.app.entity.ResponseData;
 import org.hust.app.entity.ResponseListData;
 import org.hust.app.entity.VO.TxDetailVO;
@@ -16,10 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-
+import java.util.*;
 
 
 @Controller
@@ -37,7 +35,7 @@ public class TxController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseData upload(MultipartFile file, @RequestParam("uid") String uid, @RequestParam("desc")String desc, Principal principal) {
+    public ResponseData upload(MultipartFile file, @RequestParam("uid") String uid, @RequestParam("desc")String desc) {
         if (file == null) {
             return ResponseData.error("请求接口数据接收异常");
         }
@@ -45,12 +43,7 @@ public class TxController {
             return ResponseData.error("文件为空，上传失败");
         }
         try {
-            QueryWrapper wrapper = new QueryWrapper();
-            wrapper.eq("user_name", principal.getName());
-            Customer customer = customerMapper.selectOne(wrapper);
-            String adressFile = customer.getAddress();
-            String locate = customer.getLocate();
-            String result = fileService.uploadFile(file, uid, desc, principal.getName(), adressFile, locate);
+            String result = fileService.uploadFile(file, uid, desc);
             //文件存在情况
             if (result.equals("文件上传失败，文件已经存在！") || result.equals("未上传任何文件")) {
                 return ResponseData.error(result);
@@ -62,13 +55,28 @@ public class TxController {
         }
     }
 
+    @PostMapping("/uploadDetail")
+    @ResponseBody
+    public  ResponseData uploadDetail(@RequestBody String field){
+
+        String uid = UUID.randomUUID().toString().trim();
+
+        try {
+             fileService.uploadDetail(uid, field);//返回结果不用存储
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.error("上传错误");
+        }
+        return ResponseData.success(uid);
+    }
+
     /**
     @Date 2021/11/26
     @Description 查询主链外部接口
     @author zltang
     **/
 
-    @PostMapping("/queryRecord")
+    @GetMapping("/queryRecord")
     @ResponseBody
     public ResponseListData queryRecord(@RequestParam("uid") String uid)  {
         if (uid == null || uid.equals("")) {

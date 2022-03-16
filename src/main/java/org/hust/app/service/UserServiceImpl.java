@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(ShaUtils.code(user.getPassword(),ShaUtils.SHA_1));
 
             CryptoSuite cryptoSuite = new CryptoSuite(CryptoType.SM_TYPE);
-            CryptoKeyPair cryptoKeyPair = cryptoSuite.createKeyPair();
+            CryptoKeyPair cryptoKeyPair = cryptoSuite.getCryptoKeyPair();
             String accountAddress = cryptoKeyPair.getAddress();
             cryptoKeyPair.storeKeyPairWithPemFormat();
 

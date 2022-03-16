@@ -11,6 +11,7 @@
 <body>
 
 
+
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
@@ -18,35 +19,36 @@
                 <!--<div class="layui-card-header"><a href="/logout">退出</a></div>-->
                 <div class="layui-card-body">
                     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-                        <legend>查找商品标识符(支持模糊查找)</legend>
+                        <legend ><a href="http://localhost:8088/home/download" target="_blank">查找商品标识符(点击进入下载溯源材料)</a></legend>
                     </fieldset>
 
                     <div class="layui-row" id="search">
                         <div class="layui-col-md10">
-                            <form class="layui-form layui-from-pane" lay-filter="aaa" action="" style="margin-top:20px">
+<!--                            <form class="layui-form layui-from-pane" lay-filter="aaa" action="" style="margin-top:20px">-->
 
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">商品标识</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="uid" placeholder="请输入商品标识" autocomplete="off"
-                                               class="layui-input">
-                                    </div>
-                                </div>
+<!--                                <div class="layui-form-item">-->
+<!--                                    <label class="layui-form-label">商品标识</label>-->
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <input type="text" name="uid" placeholder="请输入商品标识" autocomplete="off"-->
+<!--                                               class="layui-input">-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
 
-                                <div class="layui-form-item" style="margin-top:40px">
-                                    <div class="layui-input-block">
-                                        <button class="layui-btn  layui-btn-submit " lay-submit=""
-                                                lay-filter="searchButton">确认
-                                        </button>
-                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                                    </div>
-                                </div>
-                            </form>
+<!--                                <div class="layui-form-item" style="margin-top:40px">-->
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <button class="layui-btn  layui-btn-submit " lay-submit=""-->
+<!--                                                lay-filter="searchButton">确认-->
+<!--                                        </button>-->
+<!--                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </form>-->
+                            <input id="autoflag" th:value="${uid}" type="hidden">
                         </div>
                         <div class="layui-col-md12">
                             <div class="layui-card">
-                                <div class="layui-card-header">交易时间线</div>
+                                <div class="layui-card-header" th:text="'溯源码：' + ${uid} +' 的交易时间线'"> </div>
                                 <div class="layui-card-body">
 
                                     <ul class="layui-timeline">
@@ -58,6 +60,8 @@
                                                 <p id="inp00"></p>
                                                 <p id="inp01"></p>
                                                 <p id="inp02"></p>
+                                                <p id="inp03"></p>
+                                                <p id="inp04"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out1" style="display: none">
@@ -67,6 +71,8 @@
                                                 <p id="inp10"></p>
                                                 <p id="inp11"></p>
                                                 <p id="inp12"></p>
+                                                <p id="inp13"></p>
+                                                <p id="inp14"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out2" style="display: none">
@@ -76,6 +82,8 @@
                                                 <p id="inp20"></p>
                                                 <p id="inp21"></p>
                                                 <p id="inp22"></p>
+                                                <p id="inp23"></p>
+                                                <p id="inp24"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out3" style="display: none">
@@ -85,6 +93,8 @@
                                                 <p id="inp30"></p>
                                                 <p id="inp31"></p>
                                                 <p id="inp32"></p>
+                                                <p id="inp33"></p>
+                                                <p id="inp34"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out4" style="display: none">
@@ -94,6 +104,8 @@
                                                 <p id="inp40"></p>
                                                 <p id="inp41"></p>
                                                 <p id="inp42"></p>
+                                                <p id="inp43"></p>
+                                                <p id="inp44"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out5" style="display: none">
@@ -103,6 +115,8 @@
                                                 <p id="inp50"></p>
                                                 <p id="inp51"></p>
                                                 <p id="inp52"></p>
+                                                <p id="inp53"></p>
+                                                <p id="inp54"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out6" style="display: none">
@@ -112,6 +126,8 @@
                                                 <p id="inp60"></p>
                                                 <p id="inp61"></p>
                                                 <p id="inp62"></p>
+                                                <p id="inp63"></p>
+                                                <p id="inp64"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out7" style="display: none">
@@ -121,6 +137,8 @@
                                                 <p id="inp70"></p>
                                                 <p id="inp71"></p>
                                                 <p id="inp72"></p>
+                                                <p id="inp73"></p>
+                                                <p id="inp74"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out8" style="display: none">
@@ -130,6 +148,8 @@
                                                 <p id="inp80"></p>
                                                 <p id="inp81"></p>
                                                 <p id="inp82"></p>
+                                                <p id="inp83"></p>
+                                                <p id="inp84"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out9" style="display: none">
@@ -139,6 +159,8 @@
                                                 <p id="inp90"></p>
                                                 <p id="inp91"></p>
                                                 <p id="inp92"></p>
+                                                <p id="inp93"></p>
+                                                <p id="inp94"></p>
                                             </div>
                                         </li>
                                         <li class="layui-timeline-item" id="out10" style="display: none">
@@ -148,6 +170,8 @@
                                                 <p id="inp100"></p>
                                                 <p id="inp101"></p>
                                                 <p id="inp102"></p>
+                                                <p id="inp103"></p>
+                                                <p id="inp104"></p>
                                             </div>
                                         </li>
 
@@ -165,6 +189,7 @@
 </div>
 
 
+
 <script src="../../../layuiadmin/layui/layui.js"></script>
 <script>
     layui.config({
@@ -176,32 +201,42 @@
             form = layui.form;
 
         //监听查找按钮事件
-        form.on('submit(searchButton)', function (message) {
-            // console.log(message.field);
-            var field = message.field;
-
+        // form.on('submit(searchButton)', function (message) {
+            var field = $("#autoflag").val();
+            field = "uid=" + field;
+            console.log(field);
             $.ajax({
-                url: '/queryRecord',
+                url: '/queryRecord?',
                 data: field,
-                method: 'post',
+                method: 'get',
                 success: function (resp) {
                     var respdata = resp['data'];
                     var lens = respdata.length;
                     // console.log(respdata);
+                    for (let idx = 0; idx < 11; idx++) {
 
-                    for (let idx = 0; idx < lens; idx++) {
                         let st = "#out" + idx;
+                        if (idx >= lens) {
+                            $(st).attr("style", "display: none");
+                            continue;
+                        }
                         let sinh = "#inh" + idx;
                         let sinp0 = "#inp" + idx + "0";
                         let sinp1 = "#inp" + idx + "1";
                         let sinp2 = "#inp" + idx + "2";
+                        let sinp3 = "#inp" + idx + "3";
+                        let sinp4 = "#inp" + idx + "4";
                         $(st).attr("style", "display: block");
-                        $(sinh).text(respdata[idx]['time'].substr(0, 19))
-                        $(sinp0).text("标识符：" + respdata[idx]['uid'])
-                        $(sinp1).text("确权地点：" + respdata[idx]['locate'])
-                        $(sinp2).text("交易摘要值：" + respdata[idx]['txHash'])
+                        $(sinh).text('第' + (idx + 1) + '站')
+                        let data = respdata[idx]['attr']
+                        data = data.split(",")
+                        $(sinp0).text("溯源材料: " + data[0])
+                        $(sinp1).text("产品状态: " + data[1])
+                        $(sinp2).text("企业或个人: " + data[2])
+                        $(sinp3).text("入库时间: " + data[3])
+                        $(sinp4).text("出库时间: " + data[4])
                     }
-                //
+                    //
                 }
 
             });
@@ -209,9 +244,8 @@
 
             return false
         });
+    // })
 
-
-    });
 </script>
 </body>
 </html>

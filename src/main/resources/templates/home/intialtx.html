@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>华科大交易溯源系统</title>
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--<div class="layui-card-header"><a href="/logout">退出</a></div>-->
+                <div class="layui-card-body">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>产品上传</legend>
+                    </fieldset>
+
+                    <div class="layui-row" id="search">
+                        <div class="layui-col-md10">
+                            <form class="layui-form layui-from-pane" lay-filter="aaa" action="" style="margin-top:20px">
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">产品名称</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" lay-verify="required"  id="prodname"  placeholder="产品名称，必填"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">收货人</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" lay-verify="required" id="receiver"  placeholder="收货人，必填"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">发货人</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" lay-verify="required" id="sender"  placeholder="发货人，必填"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">核酸检测结果</label>
+                                    <div class="layui-input-block">
+                                        <select  lay-verify="" id="testresult">
+                                            <option value="未检测">未检测</option>
+                                            <option value="阴性" selected>阴性</option>
+                                            <option value="阳性" >阳性</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">上传说明</label>
+                                    <div class="layui-input-block">
+                                        <textarea id="desc" placeholder="其他说明添加，选填" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+
+
+                                <div class="layui-form-item" style="margin-top:40px">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn  layui-btn-submit " lay-submit=""
+                                                lay-filter="searchButton">确认
+                                        </button>
+                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'table'], function loaddata() {
+        var $ = layui.$,
+            form = layui.form;
+
+        //监听查找按钮事件
+        form.on('submit(searchButton)', function () {
+            // console.log(message.field);
+            var field = []
+            field.push($("#prodname").val());
+            field.push($("#receiver").val());
+            field.push($("#sender").val());
+            field.push($("#testresult").val());
+            field.push($("#desc").val());
+            field = field.join(",")
+            field = field.replace(/,$/gi,"")
+
+            console.log(field)
+            $.ajax({
+                url: '/uploadDetail',
+                data:  field,
+                contentType: 'application/json',
+                method: 'post',
+                success: function (resp) {
+                    var respdata = resp['data'];
+                    console.log(respdata);
+                    if (resp.code == 0) {
+
+                        layer.alert("数据已同步至区块链,务必保存该商品溯源码，便于后续溯源。溯源码(点击下载)：" +
+                            "<a href='https://api.pwmqr.com/qrcode/create/?url=http%3A%2F%2F127.0.0.1%3A8088%2Fhome%2Ftimeline%3Fuid%3D" + resp.msg + "&down=1'>" + resp.msg + "</a>");
+
+                    } else
+                        layer.msg(resp.msg,{icon: 2});
+                }
+            });
+
+
+            return false
+        });
+
+
+    });
+</script>
+</body>
+</html>

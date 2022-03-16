@@ -33,14 +33,6 @@ class AppApplicationTests {
 
     }
 
-    @Test
-    void testlis(){
-        BcosSDK sdk = SpringUtils.getBean("bcosSDK");
-        Client client = sdk.getClient(1);
-        CryptoSuite cryptoSuite = client.getCryptoSuite();
-        CryptoKeyPair cryptoKeyPair = cryptoSuite.createKeyPair();
-        cryptoKeyPair.storeKeyPairWithPemFormat();
-    }
 
 
 }

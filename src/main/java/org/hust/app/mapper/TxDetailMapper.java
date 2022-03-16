@@ -17,10 +17,10 @@ import java.util.List;
 @Repository
 public interface TxDetailMapper extends BaseMapper<TxDetailVO> {
     @DS("slave_0")
-    @Select("select uid,hash,description from g2_DetailCRUD_insert_method0 where tx_hash like '%${txHash}%'")
-    List<TxDetailVO> selectDetailVO0(String txHash);
+    @Select("select uid,attr from g2_detailcrud_insert_method0 where uid like '%${uid}%'")
+    List<TxDetailVO> selectDetailVO0(String uid);
 
     @DS("slave_1")
-    @Select("select uid,hash,description from g2_DetailCRUD_insert_method1 where tx_hash like '%${txHash}%'")
-    List<TxDetailVO> selectDetailVO1(String txHash);
+    @Select("select uid,attr from g2_detailcrud_insert_method1 where uid like '%${uid}%'")
+    List<TxDetailVO> selectDetailVO1(String uid);
 }

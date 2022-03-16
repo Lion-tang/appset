@@ -23,16 +23,11 @@ public class CrudController {
 
 
 
-    @PostMapping("/insert")
-    public ResponseData insert(@RequestBody Goods goods)  {
-        Random random = new Random();
-        crudClient.insertRecord(random.nextInt()+"", goods.getUid(),goods.getAttr());
-        return ResponseData.success("新增成功");
-    }
 
 
     @PostMapping("/insertDetail")
     public ResponseData insertDetail(@RequestBody Goods goods){
+
         crudClient.insertDetail(goods.getUid(), goods.getAttr());
         return ResponseData.success("修改成功");
     }

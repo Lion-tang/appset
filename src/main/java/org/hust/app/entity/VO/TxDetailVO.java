@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TxDetailVO {
     private String uid;
-    private String hash;//材料Hash
-    private String description;
-
+    private String attr;
 
 }

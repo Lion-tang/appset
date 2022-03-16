@@ -26,9 +26,9 @@
               <form class="layui-form layui-from-pane" lay-filter="aaa" action="" style="margin-top:20px">
 
                 <div class="layui-form-item">
-                  <label class="layui-form-label">交易摘要值</label>
+                  <label class="layui-form-label">溯源码</label>
                   <div class="layui-input-block">
-                    <input type="text" name="txHash" placeholder="请输入商品标识" autocomplete="off"
+                    <input type="text" name="uid" placeholder="请输入商品标识" autocomplete="off"
                            class="layui-input">
                   </div>
                 </div>
@@ -58,9 +58,6 @@
 
           <table id="demo" lay-filter="test"></table>
 
-          <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-xs" lay-event="downloadone">下载单个材料</a>
-          </script>
         </div>
       </div>
     </div>
@@ -84,28 +81,22 @@
     table.render({
         elem: '#demo'
         , totalRow: true
-        , method: 'post'
-        , url: "/queryDetail" //数据接口
         , id: 'testReload'
         , toolbar: '#toolbarDemo'
         , cols: [
             [ //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'uid', title: '标识符', fixed: 'left', align: "center",sort: "true", totalRowText: '合计'}
-                , {field: 'hash', title: '文件摘要值', align: "center"}
-                , {field: 'description', title: '属性1描述', align: "center"}
-
+                , {field: 'uid', title: '溯源码', fixed: 'left', align: "center", totalRowText: '合计'}
+                , {field: 'attr', title: '属性', align: "center"}
+                , {field: 'time', title: '上链时间', align: "center",sort: "true"}
             ]
         ]
-
     });
-
 
     //监听行工具事件
     table.on('tool(test)', function (obj) {
         var data = obj.data;
-
-        $("#ids").attr("value",data.hash);
+        $("#ids").attr("value",data.attr);
         document.Form.submit();
     });
 
@@ -115,7 +106,9 @@
         var data = table.checkStatus('testReload').data;//选中数据表格对象信息
         var ids = []; //存数组
         for(var j = 0,len = data.length; j < len; j++){
-            ids.push(data[j].hash); //id-push到数组
+            let attr = data[j].attr.split(",")[0]
+            console.log(attr)
+            ids.push(attr); //id-push到数组
         }
         $("#ids").attr("value", ids); //将ids存到input框内
         document.Form.submit(); // 表单提交
@@ -127,23 +120,20 @@
       var field = message.field;
 
           table.reload('testReload', {
-            url: '/queryDetail'
-            , method: 'post'
-            , data: field.txHash
+            url: '/queryRecord'
+            , method: 'get'
+            , data: field.uid
             , request: {
               pageName: 'page' //页码的参数名称，默认：page
               , limitName: 'limit' //每页数据量的参数名，默认：limit
             }
             , where: {
-              txHash : field.txHash
+              uid : field.uid
             }
             , page: {
               curr: 1
             }
           });
-
-
-
       return false
     });
 

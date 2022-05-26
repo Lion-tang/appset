@@ -26,7 +26,7 @@ public class UserController {
     public ResponseData register(@RequestBody Customer user) {
         int rescode = userService.register(user);
         if (rescode == -1) {
-            return ResponseData.error("用户名已存在，请使用其他用户名");
+            return ResponseData.error("用户名或节点实体已存在，请使用其他用户名或节点实体");
         } else if (rescode == 1) {
             return ResponseData.success("注册成功");
         }

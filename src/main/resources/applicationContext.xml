@@ -15,8 +15,8 @@
 			<map>
 				<entry key="peers">
 					<list>
-						<value>172.30.171.144:20200</value>
-						<value>172.30.171.144:20201</value>
+						<value>172.17.232.230:20200</value>
+						<value>172.17.232.230:20201</value>
 					</list>
 				</entry>
 			</map>

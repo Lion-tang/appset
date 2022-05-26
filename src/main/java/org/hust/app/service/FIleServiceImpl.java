@@ -6,13 +6,16 @@ import org.fisco.bcos.sdk.model.TransactionReceipt;
 import org.fisco.bcos.sdk.transaction.model.exception.ContractException;
 import org.hust.app.client.CRUDClient;
 import org.hust.app.contract.DetailCRUD;
+import org.hust.app.contract.ERC20;
 import org.hust.app.contract.RecordCRUD;
+import org.hust.app.entity.TotalAddress;
 import org.hust.app.entity.VO.TxDetailVO;
 import org.hust.app.entity.VO.TxRecordVO;
 import org.hust.app.mapper.TxDetailMapper;
 import org.hust.app.mapper.TxRecordMapper;
 import org.hust.app.utils.FileUtils;
 import org.hust.app.utils.ShaUtils;
+import org.hust.app.utils.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -50,9 +54,17 @@ public class FIleServiceImpl implements FIleService {
      **/
 
     @Override
-    public String uploadFile(MultipartFile file, String uid, String desc) throws Exception {
+    public String uploadFile(MultipartFile file, String uid, String desc, String address) throws Exception {
         if (file == null) {
             return "未上传任何文件";
+        }
+        String descLocate = desc.substring(4, desc.indexOf(',', 4));
+        List<TxRecordVO> recordVOs = queryRecord(uid);
+        for (TxRecordVO recordVO : recordVOs) {
+            String attr = recordVO.getAttr();
+            String attrLocate = attr.substring(29, attr.indexOf(',', 29) );
+            if(attrLocate.equals(descLocate))
+                return "文件上传失败，文件已经存在！";
         }
         File fileRealPath = FileUtils.getFileFromSystem("/static/files/", "/files/");
         logger.info("the file path is: {}", fileRealPath.getPath());//打印项目静态文件路径
@@ -81,6 +93,10 @@ public class FIleServiceImpl implements FIleService {
         RecordCRUD recordCRUD = ((RecordCRUD) map.get("Record"));
         TransactionReceipt transactionReceipt = recordCRUD.insert(uid, shaDigest + "," + desc);
         logger.info(transactionReceipt.toString());
+        TotalAddress totalAddress = SpringUtils.getBean(TotalAddress.class);
+        ERC20 erc20 = crudClient.load(TotalAddress.ERC20, totalAddress.getContract(), totalAddress.getAccount(), ERC20.class, 1);
+        TransactionReceipt transferReceipt = erc20.transfer(address, BigInteger.valueOf(1));
+        logger.info(transferReceipt.toString());
         return "文件上传成功,数据已同步至区块链。</br>唯一标识符为:" + uid + "</br>务必记住该商品标识符，便于后续溯源";
     }
 
@@ -93,13 +109,13 @@ public class FIleServiceImpl implements FIleService {
 
     @Override
     public String uploadDetail(String uid,  String attr) throws ContractException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        if (crudClient.getContract("Detail") == null) {
+        if (crudClient.getContract(DetailCRUD.CONTRACT_NAME) == null) {
             ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
             BcosSDK sdk = (BcosSDK) applicationContext.getBean("bcosSDK");
-            crudClient.deploy("Detail",DetailCRUD.class, sdk, 2);
+            crudClient.deploy(DetailCRUD.CONTRACT_NAME,DetailCRUD.class, sdk, 2);
 
         }
-        DetailCRUD detailCRUD = (DetailCRUD) crudClient.getContract("Detail");
+        DetailCRUD detailCRUD = (DetailCRUD) crudClient.getContract(DetailCRUD.CONTRACT_NAME);
         TransactionReceipt result = detailCRUD.insert(uid, attr);
         logger.info(result.toString());
         return "上传商品详情成功";

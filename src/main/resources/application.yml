@@ -53,4 +53,8 @@ mybatis-plus:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     banner: false
+address:
+  account: "0xdb5889bee33cb3e64893747a01cdfc0cb8eb1d01"
+  contract: "0xf630f026297679d312ccb01b2eb158214b590850"
+  webase: "172.17.232.230"
 

@@ -43,6 +43,8 @@ public class DetailCRUD extends Contract {
 
     public static final String FUNC_SELECT = "select";
 
+    public static final String CONTRACT_NAME = "Detail";
+
     public static final Event INSERTRESULT_EVENT = new Event("InsertResult", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Int256>() {}));
     ;

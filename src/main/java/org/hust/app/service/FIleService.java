@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface FIleService {
-    String uploadFile(MultipartFile file, String uid, String desc) throws Exception;
+    String uploadFile(MultipartFile file, String uid, String desc, String address) throws Exception;
 
     String uploadDetail(String uid, String attr) throws ContractException, InvocationTargetException, NoSuchMethodException, IllegalAccessException;
 

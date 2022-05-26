@@ -27,8 +27,18 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/images/**", "/layuiadmin/**","/files/**","/upload",//upload暂时不做限制
-                "/register","/download","/home/timeline","/home/download","/queryRecord","/queryDetail");
+        web.ignoring().antMatchers(
+            "/images/**",
+            "/layuiadmin/**",
+            "/files/**",
+            "/register",
+            "/download",
+            "/home/timeline",
+            "/home/download",
+            "/queryRecord",
+            "/queryDetail",
+            "/coins"
+            );
     }
 
     @Override
@@ -39,6 +49,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/set/**").hasAnyRole("USER", "ADMIN", "COMMITEE")
                 .antMatchers("/index").hasAnyRole("USER", "ADMIN", "COMMITEE")
                 .antMatchers("/user/administrators/list").hasRole("COMMITEE")
+                .antMatchers("/upload").hasAnyRole("USER", "ADMIN", "COMMITEE")
                 .antMatchers("/**").hasAnyRole("ADMIN", "COMMITEE")
                 .anyRequest()
                 .authenticated()

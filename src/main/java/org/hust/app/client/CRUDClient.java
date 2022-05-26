@@ -33,8 +33,6 @@ public class CRUDClient extends CommonClient implements ApplicationRunner {
 
     public static final Logger logger = LoggerFactory.getLogger(CRUDClient.class.getName());
 
-
-
     /**
     @Date 2021/11/11
     @Description 以下crud都是为了postman测试， dapp使用主要通过有用户账户构造的DetailCRUD和RecordCRUD发起交易
@@ -100,7 +98,7 @@ public class CRUDClient extends CommonClient implements ApplicationRunner {
         Client client = sdk.getClient(groupNum);
         CryptoSuite cryptoSuite = client.getCryptoSuite();
         cryptoSuite.loadAccount("pem", "account/gm/" + accountFile + ".pem", null);//加载已有账户pem文件
-        CryptoKeyPair cryptoKeyPair = cryptoSuite.getCryptoKeyPair();//随机生成账户
+        CryptoKeyPair cryptoKeyPair = cryptoSuite.getCryptoKeyPair();//获取当前账户，若未加载，则随机生成
 //        cryptoKeyPair.storeKeyPairWithPemFormat();//存储账户
         //合约地址使用固定的测试地址
         Method method = null;

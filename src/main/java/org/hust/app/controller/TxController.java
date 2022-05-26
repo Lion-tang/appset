@@ -2,6 +2,8 @@ package org.hust.app.controller;
 
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.hust.app.entity.Customer;
 import org.hust.app.entity.ResponseData;
 import org.hust.app.entity.ResponseListData;
 import org.hust.app.entity.VO.TxDetailVO;
@@ -9,13 +11,13 @@ import org.hust.app.entity.VO.TxRecordVO;
 import org.hust.app.mapper.CustomerMapper;
 import org.hust.app.service.FIleService;
 import org.hust.app.utils.FileUtils;
+import org.hust.app.utils.MysqlConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
 import java.util.*;
 
@@ -35,7 +37,7 @@ public class TxController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseData upload(MultipartFile file, @RequestParam("uid") String uid, @RequestParam("desc")String desc) {
+    public ResponseData upload(MultipartFile file, @RequestParam("uid") String uid, @RequestParam("desc")String desc, Principal principal) {
         if (file == null) {
             return ResponseData.error("请求接口数据接收异常");
         }
@@ -43,7 +45,10 @@ public class TxController {
             return ResponseData.error("文件为空，上传失败");
         }
         try {
-            String result = fileService.uploadFile(file, uid, desc);
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq(MysqlConstant.USER_NAME, principal.getName());
+            Customer customer = customerMapper.selectOne(queryWrapper);
+            String result = fileService.uploadFile(file, uid, desc, customer.getAddress());
             //文件存在情况
             if (result.equals("文件上传失败，文件已经存在！") || result.equals("未上传任何文件")) {
                 return ResponseData.error(result);
@@ -135,7 +140,6 @@ public class TxController {
         String[] fileArrays = fileNames.split(",");
         List<String> fileLists = Arrays.asList(fileArrays);
         try {
-
             String zipFileName = FileUtils.getCurrentTime() + ".zip";
             fileService.zipDownload( response,fileLists, zipFileName);
         } catch (IOException e) {

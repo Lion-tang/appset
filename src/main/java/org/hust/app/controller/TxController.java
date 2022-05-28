@@ -1,7 +1,5 @@
 package org.hust.app.controller;
 
-
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.hust.app.entity.Customer;
 import org.hust.app.entity.ResponseData;

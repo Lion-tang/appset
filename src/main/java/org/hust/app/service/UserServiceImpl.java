@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
         wrapper.eq(MysqlConstant.LOCATE, user.getLocate()).or().eq(MysqlConstant.USER_NAME, user.getUserName());
         if (customerMapper.selectOne(wrapper) == null) {
             user.setPassword(ShaUtils.code(user.getPassword(),ShaUtils.SHA_1));
-
             CryptoSuite cryptoSuite = new CryptoSuite(CryptoType.SM_TYPE);
             CryptoKeyPair cryptoKeyPair = cryptoSuite.getCryptoKeyPair();
             String accountAddress = cryptoKeyPair.getAddress();

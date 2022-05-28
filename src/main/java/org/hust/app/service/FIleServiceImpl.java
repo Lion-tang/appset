@@ -85,12 +85,12 @@ public class FIleServiceImpl implements FIleService {
         }
 
         Map<String, Object> map = crudClient.getContractMap();//开启文件Hash上传至区块链
-        if (!map.containsKey("Record")){
+        if (!map.containsKey(TotalAddress.RECORD_CONTRACT_NAME)){
             ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
             BcosSDK sdk = (BcosSDK) applicationContext.getBean("bcosSDK");
-            crudClient.deploy("Record", RecordCRUD.class,sdk, 1);
+            crudClient.deploy(TotalAddress.RECORD_CONTRACT_NAME, RecordCRUD.class,sdk, 1);
         }
-        RecordCRUD recordCRUD = ((RecordCRUD) map.get("Record"));
+        RecordCRUD recordCRUD = ((RecordCRUD) map.get(TotalAddress.RECORD_CONTRACT_NAME));
         TransactionReceipt transactionReceipt = recordCRUD.insert(uid, shaDigest + "," + desc);
         logger.info(transactionReceipt.toString());
         TotalAddress totalAddress = SpringUtils.getBean(TotalAddress.class);
@@ -109,13 +109,13 @@ public class FIleServiceImpl implements FIleService {
 
     @Override
     public String uploadDetail(String uid,  String attr) throws ContractException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        if (crudClient.getContract(DetailCRUD.CONTRACT_NAME) == null) {
+        if (crudClient.getContract(TotalAddress.DETAIL_CONTRACT_NAME) == null) {
             ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
             BcosSDK sdk = (BcosSDK) applicationContext.getBean("bcosSDK");
-            crudClient.deploy(DetailCRUD.CONTRACT_NAME,DetailCRUD.class, sdk, 2);
+            crudClient.deploy(TotalAddress.DETAIL_CONTRACT_NAME,DetailCRUD.class, sdk, 2);
 
         }
-        DetailCRUD detailCRUD = (DetailCRUD) crudClient.getContract(DetailCRUD.CONTRACT_NAME);
+        DetailCRUD detailCRUD = (DetailCRUD) crudClient.getContract(TotalAddress.DETAIL_CONTRACT_NAME);
         TransactionReceipt result = detailCRUD.insert(uid, attr);
         logger.info(result.toString());
         return "上传商品详情成功";

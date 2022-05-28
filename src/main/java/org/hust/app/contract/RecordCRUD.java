@@ -64,13 +64,13 @@ public class RecordCRUD extends Contract {
         return executeTransaction(function);
     }
 
-    public void insert(String uid, String attr, TransactionCallback callback) {
+    public byte[] insert(String uid, String attr, TransactionCallback callback) {
         final Function function = new Function(
                 FUNC_INSERT, 
                 Arrays.<Type>asList(new org.fisco.bcos.sdk.abi.datatypes.Utf8String(uid), 
                 new org.fisco.bcos.sdk.abi.datatypes.Utf8String(attr)), 
                 Collections.<TypeReference<?>>emptyList());
-        asyncExecuteTransaction(function, callback);
+        return asyncExecuteTransaction(function, callback);
     }
 
     public String getSignedTransactionForInsert(String uid, String attr) {

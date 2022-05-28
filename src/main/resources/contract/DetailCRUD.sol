@@ -36,7 +36,7 @@ contract DetailCRUD {
         for (int256 i = 0; i < entries.size(); ++i) {
             Entry entry = entries.get(i);
             goods_uid_bytes_list[uint256(i)] = entry.getString("uid");
-            attrlist[uint256(i)] = entry.getString("attr");
+            attr_list[uint256(i)] = entry.getString("attr");
         }
 
         return (goods_uid_bytes_list, attr_list);

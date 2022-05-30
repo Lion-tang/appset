@@ -43,7 +43,7 @@ public class TxController {
             return ResponseData.error("文件为空，上传失败");
         }
         try {
-            QueryWrapper queryWrapper = new QueryWrapper();
+            QueryWrapper<Customer> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq(MysqlConstant.USER_NAME, principal.getName());
             Customer customer = customerMapper.selectOne(queryWrapper);
             String result = fileService.uploadFile(file, uid, desc, customer.getAddress());

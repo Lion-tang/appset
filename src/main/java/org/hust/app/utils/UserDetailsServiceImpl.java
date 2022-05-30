@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        QueryWrapper wrapper = new QueryWrapper();
+        QueryWrapper<Customer> wrapper = new QueryWrapper();
         wrapper.eq("user_name", userName);
         Customer customer = customerMapper.selectOne(wrapper);
         if (customer == null) {

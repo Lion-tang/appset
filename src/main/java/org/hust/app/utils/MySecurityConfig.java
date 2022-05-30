@@ -31,7 +31,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
             "/images/**",
             "/layuiadmin/**",
             "/files/**",
-            "/register",
+            "/initRegister",
             "/download",
             "/home/timeline",
             "/home/download",
@@ -50,6 +50,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index").hasAnyRole("USER", "ADMIN", "COMMITEE")
                 .antMatchers("/user/administrators/list").hasRole("COMMITEE")
                 .antMatchers("/upload").hasAnyRole("USER", "ADMIN", "COMMITEE")
+                .antMatchers("/updatePassword").hasAnyRole("USER", "ADMIN", "COMMITEE")
                 .antMatchers("/**").hasAnyRole("ADMIN", "COMMITEE")
                 .anyRequest()
                 .authenticated()

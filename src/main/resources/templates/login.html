@@ -40,7 +40,7 @@
                 <div class="material-button alt-2">
                     <span class="shape"></span>
                 </div>
-                <div class="title">游客-注册</div>
+                <div class="title">仅初始化后可注册</div>
                 <div class="input">
                     <label for="regname">用户名</label>
                     <input type="text" name="regname" id="regname">
@@ -62,11 +62,7 @@
                     </button>
                 </div>
             </div>
-
-
-
-
-</div>
+    </div>
 
 <script type="text/javascript" src="../../layuiadmin/jquery.js"></script>
 
@@ -74,26 +70,26 @@
 
 
     function buttonclick() {
-        if ($("input#regpass").val() != $("#reregpass").val()) {
+        if ($("input#regpass").val() != $("input#reregpass").val()) {
             alert("两次输入密码不一致，请重新输入");
-            return;
         } else {
 
             var user = {
                 userName: $("input#regname").val(),
                 password: $("input#regpass").val(),
-
-
             }
-            console.log(user);
+            // console.log(user);
             $.ajax(
                 {
-                    url: '/register',
+                    url: '/initRegister',
                     data: JSON.stringify(user),
                     contentType: 'application/json',
                     datatype: 'json',
                     method: 'post',
                     success: function (res) {
+                        alert(res.msg);
+                    },
+                    error: function (res) {
                         alert(res.msg);
                     }
                 }

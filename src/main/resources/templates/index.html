@@ -26,7 +26,7 @@
             </a>
           </li>
           <li class="layui-nav-item layui-hide-xs" lay-unselect th:if = "${role == 'commitee' || role == 'admin'}">
-            <a href="http://192.168.59.128:5000/#/home" target="_blank" title="后台底层">
+            <a th:href="@{${webase}}" target="_blank" title="后台底层">
               <i class="layui-icon layui-icon-website"></i>
             </a>
           </li>
@@ -136,25 +136,16 @@
               <dl class="layui-nav-child">
                 <dd class="layui-nav-itemed">
                   <dl class="layui-nav-child">
-                    <dd><a lay-href="set/info.html">基本资料</a></dd>
+                    <dd>
+                      <a th:href="@{${webase}}" target="_blank" th:if = "${role == 'commitee' || role == 'admin'}">后台控制台</a>
+                    </dd>
                     <dd><a lay-href="set/password.html">修改密码</a></dd>
                   </dl>
                 </dd>
               </dl>
             </li>
 
-            <li data-name="template" class="layui-nav-item" th:if = "${role == 'commitee' || role == 'admin'}">
-              <a href="javascript:;" lay-tips="页面" lay-direction="2">
-                <i class="layui-icon layui-icon-template"></i>
-                <cite>页面</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="user/register.html">注册</a></dd>
-                <dd>
-                  <a th:href="@{${webase}}" target="_blank">后台控制台</a>
-                </dd>
-              </dl>
-            </li>
+
 
             <li data-name="component" class="layui-nav-item" th:if = "${role == 'commitee' || role == 'admin'}">
               <a href="javascript:;" lay-tips="组件" lay-direction="2">

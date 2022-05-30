@@ -18,7 +18,7 @@ cp ~/fisco/nodes/127.0.0.1/sdk/gm/* ~/fisco/console/conf/gm/
 
 cp -n ~/fisco/console/conf/config-example.toml  ~/fisco/console/conf/config.toml
 
-wget -P  ~/fisco/console/contracts/solidity https://github.com/Lion-tang/appset/blob/master/src/main/resources/contract/RecordCRUD.sol
+wget -P  ~/fisco/console/contracts/solidity https://gitee.com/lyontang/appset/raw/master/src/main/resources/contract/RecordCRUD.sol
 
-wget -P ~/fisco/console/contracts/solidity https://github.com/Lion-tang/appset/blob/master/src/main/resources/contract/DetailCRUD.sol
+wget -P ~/fisco/console/contracts/solidity https://gitee.com/lyontang/appset/raw/master/src/main/resources/contract/DetailCRUD.sol
 

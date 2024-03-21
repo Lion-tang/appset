@@ -20,6 +20,7 @@ mkdir -p ~/fisco/Data-Export/tools/config/solidity/abi/
 mkdir -p ~/fisco/Data-Export/tools/config/solidity/bin/sm 
 cp ~/fisco/console/contracts/solidity/DetailCRUD.sol ~/fisco/Data-Export/tools/config/solidity/
 cp ~/fisco/console/contracts/solidity/RecordCRUD.sol ~/fisco/Data-Export/tools/config/solidity/
+cp ~/fisco/console/contracts/solidity/Table.sol ~/fisco/Data-Export/tools/config/solidity/
 cp ~/fisco/console/contracts/sdk/abi/sm/DetailCRUD.abi ~/fisco/Data-Export/tools/config/solidity/abi/
 cp ~/fisco/console/contracts/sdk/abi/sm/RecordCRUD.abi ~/fisco/Data-Export/tools/config/solidity/abi/
 cp ~/fisco/console/contracts/sdk/bin/sm/DetailCRUD.bin ~/fisco/Data-Export/tools/config/solidity/bin/sm/

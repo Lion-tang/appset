@@ -1,3 +1,6 @@
+set -e
+set -x
+
 mkdir -p ~/fisco/Data-Export
 git clone https://gitee.com/WeBankBlockchain/Data-Export.git "$HOME/fisco/Data-Export"
 sed -i 's/groupId=1/groupId=1,2/' ~/fisco/Data-Export/tools/config/application.properties

@@ -1,3 +1,6 @@
+set -e
+set -x
+
 wget -P ~/fisco https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeBASE/releases/download/v1.5.2/webase-deploy.zip
 
 unzip ~/fisco/webase-deploy.zip

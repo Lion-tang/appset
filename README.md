@@ -148,14 +148,13 @@ Python3 deploy.py startAll
 
 复制`用户公钥地址`和`合约地址`分别到 `application.yml` 的 `address:account` 和 `adress:contract`
 
-4. 运行`build_Data-Export.sh` 区块链数据同步工具
-首先通过脚本构建该工具，并配置
+4. 运行`build_Data-Export.sh`脚本，通过脚本构建区块链数据同步工具，并自动化配置
 
 ```bash
 bash build_Data-Export.sh
 ```
 
-如果发现数据无法同步，这是版本问题，请联系361092772@qq.com，我会提供其他版本协助你
+如果发现数据无法同步，这是版本问题，建议重新构建[Data-Export v1.7.4](https://gitee.com/WeBankBlockchain/Data-Export/tree/c636d800957cdb9a77281dcc733663bb87fa1e45)版本，并参照 `build_Data-Export.sh` 脚本重新走一遍
 
 运行程序
 
@@ -166,7 +165,7 @@ bash start.sh
 nohup java -jar XXX.jar >temp.out &
 ```
 
-5. 溯源后台服务（假设后台服务在~/fisco/appset-0.0.1-SNAPSHOT.jar）
+5. 溯源后台服务（把源码编译打包后，移动jar包，假设后台服务在~/fisco/appset-0.0.1-SNAPSHOT.jar）
 
 配置证书（默认读取/conf/gm下国密证书
 
@@ -187,4 +186,4 @@ cd ~/fisco
 java -Xbootclasspath/a:./conf -jar appset-0.0.1-SNAPSHOT.jar
 ```
 
-如遇问题可以联系361092772@qq.com，作者看到会尽力帮助解决
+如遇问题无法解决可以联系361092772@qq.com，作者看到会尽力帮助解决
